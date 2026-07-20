@@ -5,6 +5,7 @@ from datetime import date
 # プロジェクトフォルダー
 from libraries import classes
 
+
 from libraries import time_edit_highly_advanced as time_edit
 from libraries import formulae, sets, create_data_functions
 
@@ -65,7 +66,7 @@ def main() -> None:
 						set_of_directories.add_element(directory)
 
 					set_of_directory_ordered_pairs = sets.create_set_of_ordered_pairs_from_set_of_directories(set_of_directories.mutable_set)
-					set_of_directory_ordered_pairs.show_ordered_pairs()
+					# set_of_directory_ordered_pairs.show_ordered_pairs()
 					
 					relation = sets.create_relation(formulae.formula_directory_J_is_equal_to_or_below_directory_I, set_of_directory_ordered_pairs)
 					relation.show_ordered_pairs(True)
@@ -84,3 +85,7 @@ def main() -> None:
 						directory.calculate_rank(set_of_directory_ordered_pairs)
 						print("DIRNAME: " + directory.dir_name + ", RANK" + (str)(directory.rank))
 						print("SET FOR CALCULATION: " + (str)(directory.set_for_calculation) + "\n")
+
+			given_datetime = time_edit.input_time_today()
+			for directory_info_dict in directory_info_dict_list
+			create_dirs_on_specific_time(given_datetime, directory_info_dict['directory_name'], directory_info_dict['directory_where'])
