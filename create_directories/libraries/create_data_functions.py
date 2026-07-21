@@ -4,7 +4,7 @@ import datetime
 from datetime import date
 # プロジェクトフォルダーから。
 from libraries import classes 
-from libraries import time_edit_highly_advanced as time_edit
+from libraries import time_edit
 from libraries import formulae
 
 def sort_set(given_set:set):

@@ -4,7 +4,7 @@ import datetime
 from datetime import date
 # プロジェクトフォルダー
 from libraries import classes
-from libraries import time_edit_highly_advanced as time_edit
+from libraries import time_edit
 from libraries import formulae, sets, create_data_functions
 
 def main() -> None:

@@ -3,7 +3,7 @@ import time
 import datetime
 from datetime import date
 # プロジェクトフォルダー
-from libraries import time_edit_highly_advanced as time_edit
+from libraries import time_edit
 
 from libraries import sets, formulae
 

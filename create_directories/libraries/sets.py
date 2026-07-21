@@ -5,7 +5,7 @@ from datetime import date
 # プロジェクトフォルダー
 from libraries import classes
 
-from libraries import time_edit_highly_advanced as time_edit
+from libraries import time_edit
 
 # ディレクトリの集合からその順序対全体の集合を構成する関数。 -- create関数。
 def create_set_of_ordered_pairs_from_set_of_directories(set_of_directories:SetOfDirectories) -> SetOfDirectoryOrderedPairs:

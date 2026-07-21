@@ -5,7 +5,7 @@ from datetime import date
 # プロジェクトフォルダー
 from libraries import classes
 
-from libraries import time_edit_highly_advanced as time_edit
+from libraries import time_edit
 
 def formula_directory_J_is_equal_to_or_below_directory_I(ordered_pair:DirectoryOrderedPair) -> bool: # dir_I < dir_Jをdir_I\dir_Jのことと定める。 dir_I, dir_Jのルートディレクトリは一致するという前提。
 	return True if (ordered_pair.dir_J.dir_path.find(ordered_pair.dir_I.dir_path) != -1) else False
