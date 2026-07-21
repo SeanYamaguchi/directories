@@ -53,10 +53,7 @@ def create_directory_info(directory_info_dict_list:list, if_create:bool = True, 
 			directory_info_dict['directory_name'] = dir_segments[-1]
 			directory_info_dict['directory_where'] = directory_info_dict['directory_path'].strip(directory_info_dict['directory_name'])
 			directory_info_dict['directory_where'] = directory_info_dict['directory_where'].strip('\\')
-		# print("ROOT DIRECTORY: ")
-		# print(directory_info_dict['directory_name'])
-		# print(directory_info_dict['directory_where'])
-		# print(directory_info_dict['directory_path'])
+
 	else:
 		directory_info_dict['directory_name'] = input("作成するディレクトリ名称を入力してください。: ")
 		current_working_dir = os.getcwd()

@@ -4,10 +4,13 @@ import datetime
 from datetime import date
 # プロジェクトフォルダー
 from libraries import time_edit
-
-from libraries import sets, formulae
+from libraries import sets
+from libraries import formulae
 
 class Directory():
+	"""	
+	ディレクトリに関する情報を管理するクラス。
+	"""
 	def __init__(self, dir_name:str = None, dir_where:str = None, root_dir_path:str = None, tree_mode:bool = False, directory_id:int = None):	
 		# Info As Directory
 		self.dir_name = dir_name
@@ -24,13 +27,12 @@ class Directory():
 		self.root_dir_path = root_dir_path
 		self.set_for_calculate_rank = SetOfDirectories()
 		self.set_for_calculation = set()
-		self.rank = None # (基礎論の文脈における)typeで決定することが可能。		
+		self.rank = None # (基礎論の文脈における)typeで決定することが可能。	
 		self.height = None
 		self.dir_name_related_and_rank_minus_1:Directory = None
 		self.dir_or_dirs_related_and_rank_plus_1:SetOfDirectories = SetOfDirectories()
 		self.node_id = None
 
-		# Info As Tree
 	def show_directory_info(self):
 		print("DIR NUM: " + (str)(self.directory_id))
 		print("DIR NAME: " + self.dir_name)
@@ -115,6 +117,9 @@ class Directory():
 		self.dir_or_dirs_related_and_rank_plus_1()
 
 class NormalSet():
+	"""
+	本プログラムで扱う集合を表現するクラス
+	"""
 	def __init__(self):
 		self.mutable_set = set()
 		self.frozenset = set()
@@ -140,12 +145,17 @@ class NormalSet():
 			self.mutable_set.discard(element)
 
 class SetOfDirectories(NormalSet):
+	"""
+	ディレクトリの集合を表現するクラス
+	"""
 	def show(self):
 		if (directory.directory_id != None for directory in self.mutable_set):
 			for directory in self.mutable_set:
-				print("DIRNUM: " + (str)(directory.directory_id) + "DIRNAME: " + directory.dir_name + ", DIR_PATH: " + directory.dir_path)
+				directory.set_dir_path()
+				print("DIRNAME: " + directory.dir_name + ", DIR_PATH: " + directory.dir_path)
 		else:
 			for directory in self.mutable_set:
+				directory.set_dir_path()
 				print("DIRNAME: " + directory.dir_name + ", DIR_PATH: " + directory.dir_path)
 
 class TreeOfDirectories(SetOfDirectories):
@@ -153,13 +163,19 @@ class TreeOfDirectories(SetOfDirectories):
 		print(self.mutable_set)
 
 class OrderedPair(NormalSet):
+	"""
+	順序対を表現するクラス。
+	"""
 	def __init__(self, element_I:Set, element_J:Set):
 		self.element_I = element_I
 		self.element_J = element_J
 		self.mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
 		self.ordered_pair:frozenset = frozenset([frozenset([self.element_I]), frozenset([self.element_I, self.element_J])])
 
-class DirectoryOrderedPair(OrderedPair): # 任意のディレクトリふたつの順序対を作成する。
+class DirectoryOrderedPair(OrderedPair):
+	"""
+	ディレクトリに関する順序対を表現するクラス。
+	"""
 	def __init__(self, dir_I:Directory, dir_J:Directory):
 		self.element_I = dir_I
 		self.element_J = dir_J
@@ -168,12 +184,18 @@ class DirectoryOrderedPair(OrderedPair): # 任意のディレクトリふたつ�
 		self.mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
 		self.ordered_pair:frozenset = frozenset([frozenset([self.dir_I]), frozenset([self.dir_I, self.dir_J])])
 
-class SetOfOrderedPairs(NormalSet): # 任意の適当な順序対の集合を定義するクラス。
+class SetOfOrderedPairs(NormalSet):
+	"""
+	順序対の集合を定義するクラス。
+	"""
 	def show_ordered_pairs(self):
 		for ordered_pair in self.mutable_set:
 			print("OREDERED_PAIR: " + "< " + ordered_pair.element_I + ", " + ordered_pair.element_J + " >")
 
-class SetOfDirectoryOrderedPairs(SetOfOrderedPairs): # ディレクトリに関する順序対の集合を定義するクラス。
+class SetOfDirectoryOrderedPairs(SetOfOrderedPairs): 
+	"""
+	ディレクトリに関する順序対の集合を定義するクラス。
+	"""
 	def show_ordered_pairs(self, set_representation = False):
 		if (set_representation == True):
 			print("{ ", end=" ")
@@ -193,6 +215,9 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs): # ディレクトリに関�
 				print("ORDERED_PAIR_OF_DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.dir_name + "\"" + ", " + "\"" + ordered_pair.dir_J.dir_name + "\"" + " 〉")
 
 class Tree():
+	"""
+	木構造を表現するクラス。
+	"""
 	def __init__(self, set_of_elements:NormalSet, relation:Set, relation_formula:function):
 		self.set_of_elements:NormalSet = set_of_elements # set of directories等である。
 		self.relation:SetOfDirectoryOrderedPairs = relation # set of directory orde

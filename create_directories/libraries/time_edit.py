@@ -1,32 +1,12 @@
 import datetime
 import re
 import time
-from datetime import date, timedelta
+from datetime import date
+from datetime import timedelta
 import threading
 from array import array
-# from plyer import notification
-# プロジェクトフォルダー
 
 HALF_DAY_LENGTH_HOURS = 12
-
-# def notify_time(giveen_t:datetime) -> None:
-#	modified_time = given_t.strftime('%m月%d日%I:%M') # 日付・時間から文字列に変換する。
-#	another_modified_time = strftime('%I:%M %m月%d日') # 表示する順序の変更。時間・日付
-#	notification.notify(
-#			title="時間の通知",
-#			message=modified_time,
-#			app_name="Time Editor",
-#			timeout=1000)
-
-# def notify_24_foundation(t:datetime) -> None:
-
-# def notify_hour(given_t:datetime) -> None:
-#	hour = given_t.strftime('%I時')
-#	notification.notify(
-#		title="時間の通知",
-#		message=hour,
-#		app_name="Time Editor",
-#		timeout=1000)
 AM_PM:array = ["取得できていない．", "午前", "午後"]
 
 def if_equal_time(time_a:datetime, time_b:datetime) -> bool:
@@ -35,19 +15,6 @@ def if_equal_time(time_a:datetime, time_b:datetime) -> bool:
 			return True
 		else:
 			return False
-
-# def if_roughly_equal_time(time_a:datetime, time_b:datetime) -> bool:
-#	AM_PM_time_a = (int)(time_a.strftime('%I'))
-#	AM_PM_time_b = (int)(time_b.strftime('%I'))
-#	print(AM_PM_time_b)
-#	print(time_a.hour)
-#	if ((AM_PM_time_a == AM_PM_time_b)):
-#		# print("TWO HOURS ARE ROUGHLY EQUAL")
-#		if time_a.minute == time_b.minute:
-#			#print("TWO HOURS AND MINUTES ARE ROUGHLY EQUAL")
-#			return True
-#		else:
-#			return False
 
 def check_and_convert_AM_PM(str_input:str) -> int:
 	if (str_input == "午前"):
@@ -98,8 +65,8 @@ def input_time_today() -> datetime:
 	return given_datetime
 
 def get_current_time(current_t:datetime) -> None:
-	today = current_t.strftime('%m月%d日%I:%M') # 日付・時間から文字列に変換す -る。
-	another_today = current_t.strftime('%I:%M %m月%d日') # 表示する順序の変更。時間・日付
+	today = current_t.strftime('%m月%d日%I:%M')
+	another_today = current_t.strftime('%I:%M %m月%d日')
 	print(today)
 	# notify_time(current_t)
 
@@ -129,7 +96,10 @@ def get_current_minute(current_t:datetime) -> None:
 	current_minute = current_t.strftime('%M分')
 	print("CURRENT MINUTE: " + current_minute)
 
-def get_current_hello_world(given_t:datetime) -> None: # 特定の時間になると、なにかアクションする。
+def get_current_hello_world(given_t:datetime) -> None:
+	"""
+	特定の時間になると、時間を表示する関数。
+	"""
 	while True:
 		current_t = datetime.datetime.now()
 		if (if_equal_time(current_t, given_t)):
@@ -142,63 +112,13 @@ def get_current_hello_world(given_t:datetime) -> None: # 特定の時間にな�
 			time.sleep(1)
 		pass
 
-def get_if_good_minute(given_t:datetime) -> None: # 特定の時間になると、なにかアクションする。
+def get_if_good_minute(given_t:datetime) -> None:
+	"""
+	特定の時間になると、時間を表示する関数。
+	"""
 	current_t = datetime.datetime.now()
 	if (if_equal_time(current_t, given_t)):
 		today = current_time.strftime('%m月%d日%I:%M')
 		print("CURRENT_TIME: " + today)
 	else:
 		print("Not Now:")
-
-def main():
-	while True:
-		commandline_input = input("入力待ち（press \">\" to display the menu of commands）: ")  
-		# the menu of commands が表示される。
-
-		current_time = datetime.datetime.now() # 現在時刻の取得　datetime Objectの生成。
-		currentt_time = datetime
-		if commandline_input == 'later':
-			break
-
-		elif commandline_input == '>':
-			help_command.show_help()
-
-		elif commandline_input == 'time':
-
-#			thread_for_popup_of_time = threading.Thread(target=notify_time(current_time))
-#			thread_for_popup_of_time.start()
-			get_current_time(current_time)
-
-		elif commandline_input == '24_foundation_time':
-			get_current_24_foundation_time(current_time)
-
-		elif commandline_input == '24_foundation_hour':
-			get_current_24_foundation_hour(current_time)
-
-		elif commandline_input == 'day':
-			get_current_day(current_time)
-
-		elif commandline_input == 'hour':
-			get_current_hour(current_time)
-#			thread_for_popup_of_hour = threading.Thread(target=notify_hour(current_time))
-#			thread_for_popup_of_hour.start()
-
-		elif commandline_input == 'minute':
-			get_current_minute(current_time)
-
-		elif commandline_input == 'rough_minute':
-			get_current_rough_minute(current_time)
-
-		elif commandline_input == 'hello_world':
-			given_datetime = input_time_today()
-			get_current_hello_world(given_datetime)
-
-		elif commandline_input == 'get_good_time':
-			given_datetime = input_time_today()
-			get_if_good_minute(given_datetime)
-
-		else:
-			pass
-
-if __name__ == "__main__": # 直接実行の場合
-	main()
