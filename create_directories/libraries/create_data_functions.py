@@ -19,11 +19,11 @@ def sort_set(given_set:set):
 			list_of_element.append(min_ordered_pair)
 		return list_of_element
 
-def create_dirs_on_specific_time(given_t:datetime, directory:Directory, dir_related_and_rank_minus_1:Directory) -> None:
+def create_dirs_on_specific_time(given_t:datetime, directory_name, dir_related_and_rank_minus_1) -> None:
 	while True:
 		current_t = datetime.datetime.now()
 		if (time_edit.if_equal_time(current_t, given_t)):		
-			create_directories(dir_name, dir_related_and_rank_minus_1)
+			create_directories(directory_name, dir_related_and_rank_minus_1)
 			break
 		else:
 			print("Not Now: ")
