@@ -41,7 +41,7 @@ def hour_converter_from_AM_PM_to_24_foundation(hour_AM_PM:int, AM_or_PM_identifi
 	return hour_24_foundation
 
 def create_time_info() -> dict:			
-	print("好みの時間を入力してください。それが、現在時刻に等しいかどうか確認することができます。")
+	print("好みの時間を入力してください。")
 	AM_PM_input = input_AM_PM() # 午前か午後かの入力。
 	hour_input = (int)(input("時間？: "))
 	minute_input = (int)(input("何分？: "))
@@ -57,7 +57,6 @@ def create_datetime_with_AM_PM_time_dict_and_given_date(time_dict:dict, given_da
 	return given_time
 
 def input_time_today() -> datetime:
-	print("好みの時間を入力してください。")
 	AM_PM_time_dict = create_time_info()
 	current_date = date.today()
 	given_datetime = create_datetime_with_AM_PM_time_dict_and_given_date(AM_PM_time_dict, current_date)

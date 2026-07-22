@@ -7,19 +7,10 @@ from libraries import classes
 from libraries import time_edit
 from libraries import formulae
 
-def sort_set(given_set:set):
-	if (type(given_set) == SetOfOrderedPairs):
-		min_value, min_directory, list_of_element = len(given_set), None, []
-		for iterator in range(len(given_set)):
-			for ordered_pair in given_set:
-				if (ordered_pair.element_I < min_value):
-					min_value, min_directory = ordered_pair.element_I, ordered_pair.element_J
-			min_ordered_pair = OrderedPair(min_value, min_directory)
-			given_set.remove_element(min_ordered_pair)
-			list_of_element.append(min_ordered_pair)
-		return list_of_element
-
 def create_dirs_on_specific_time(given_t:datetime, directory_name, dir_related_and_rank_minus_1) -> None:
+	"""
+	特定の時間にディレクトリを1つ以上作成することができる関数。
+	"""
 	while True:
 		current_t = datetime.datetime.now()
 		if (time_edit.if_equal_time(current_t, given_t)):		
@@ -31,6 +22,9 @@ def create_dirs_on_specific_time(given_t:datetime, directory_name, dir_related_a
 		pass
 
 def create_directories(dir_name:str, dir_related_and_rank_minus_1:str):
+	"""
+	ディレクトリを1つ以上作成する関数。
+	"""
 	current_wd = os.getcwd()
 	if ((dir_related_and_rank_minus_1 == current_wd)):
 		path_of_dir:str = dir_name
@@ -40,6 +34,9 @@ def create_directories(dir_name:str, dir_related_and_rank_minus_1:str):
 	print("DIRECTORY NAME: " + dir_name + ", PATH: " + dir_related_and_rank_minus_1) # print("DIRECTORIE(S) ARE CREATED !!!: ")
 
 def create_directory_info(directory_info_dict_list:list, if_create:bool = True, tree_mode:bool = True, is_root_directory = False) -> dict:
+	"""
+	ディレクトリに関する情報を辞書型で作成する関数。
+	"""
 	directory_info_dict = { 'directory_name': None, 'directory_where': None, 'directory_path': None }
 	if (if_create == False):
 		directory_info_dict['directory_path'] = input("選択するディレクトリのパスを入力してください。")
@@ -87,12 +84,7 @@ def create_directory_info(directory_info_dict_list:list, if_create:bool = True, 
 		directory_info_dict['is_root_directory'] = False
 	return directory_info_dict
 
-### def create_tree_info(directory_info_dict_list:list): ###
+"""
+def create_tree_info(directory_info_dict_list:list):
 
-def print_hyphen(directory:Directory):
-	print_str = ''
-	if (directory.dir_path == None):
-		directory.get_dir_path()
-	for symbol in range(len(directory.dir_name + directory.dir_path)):
-		print_str += '-'
-	print(print_str)
+"""

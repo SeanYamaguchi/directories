@@ -152,11 +152,11 @@ class SetOfDirectories(NormalSet):
 		if (directory.directory_id != None for directory in self.mutable_set):
 			for directory in self.mutable_set:
 				directory.set_dir_path()
-				print("DIRNAME: " + directory.dir_name + ", DIR_PATH: " + directory.dir_path)
+				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 		else:
 			for directory in self.mutable_set:
 				directory.set_dir_path()
-				print("DIRNAME: " + directory.dir_name + ", DIR_PATH: " + directory.dir_path)
+				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 
 class TreeOfDirectories(SetOfDirectories):
 	"""
@@ -219,7 +219,7 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs):
 
 class Tree():
 	"""
-	木構造を表現するクラス。
+	木構造を表現するクラス。集合と半順序の対として定義されているように、単なるディレクトリの集合等ではないことに注意する。
 	"""
 	def __init__(self, set_of_elements:NormalSet, relation:Set, relation_formula:function):
 		self.set_of_elements:NormalSet = set_of_elements # set of directories等である。
