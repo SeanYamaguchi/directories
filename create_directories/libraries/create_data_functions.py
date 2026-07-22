@@ -31,7 +31,7 @@ def create_directories(dir_name:str, dir_related_and_rank_minus_1:str):
 	else:
 		path_of_dir:str = dir_related_and_rank_minus_1 + "\\" + dir_name
 	os.makedirs(path_of_dir, exist_ok=True)
-	print("DIRECTORY NAME: " + dir_name + ", PATH: " + dir_related_and_rank_minus_1) # print("DIRECTORIE(S) ARE CREATED !!!: ")
+	print("DIRNAME: " + dir_name + ", PATH: " + dir_related_and_rank_minus_1) # print("DIRECTORIE(S) ARE CREATED !!!: ")
 
 def create_directory_info(directory_info_dict_list:list, if_create:bool = True, tree_mode:bool = True, is_root_directory = False) -> dict:
 	"""

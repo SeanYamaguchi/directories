@@ -34,12 +34,12 @@ class Directory():
 		self.node_id = None
 
 	def show_directory_info(self):
-		print("DIR NUM: " + (str)(self.directory_id))
-		print("DIR NAME: " + self.dir_name)
-		print("DIR WHERE: " + self.dir_where)
-		print("DIR PATH: " + self.dir_path)
+		print("DIRNUM: " + (str)(self.directory_id))
+		print("DIRNAME: " + self.dir_name)
+		print("DIRWHERE: " + self.dir_where)
+		print("DIRPATH: " + self.dir_path)
 		print("IS TREE NODE: " + self.is_tree_node) 
-		print("DIR ID: " + self.directory_id)
+		print("DIRID: " + self.directory_id)
 		if (self.is_tree_node == False):
 			print("TREE_NODE: " + self.is_tree_node)
 		else:
@@ -47,7 +47,7 @@ class Directory():
 			print("------ Info As Tree Node ------")
 			print("HEIGHT: " + (str)(self.height))
 			print("RANK: " + (str)(self.rank))
-			print("DIR_NAME_RELATED_AND_RANK_MINUS_1: " + (str)(self.dir_related_and_rank_minus_1))
+			print("DIR NAME RELATED AND RANK MINUS 1: " + (str)(self.dir_related_and_rank_minus_1))
 			print("DIR ROOT DIR PATH: " + (str)(self.root_dir_path))
 			print("DIR RELATED AND RANK MINUS 1: " + (str)(self.dir_related_and_rank_minus_1))
 			print("DIR OR DIRS RELATED AND RANK PLUS 1: " + (str)(self.dir_or_dirs_related_and_rank_plus_1))
@@ -193,7 +193,7 @@ class SetOfOrderedPairs(NormalSet):
 	"""
 	def show_ordered_pairs(self):
 		for ordered_pair in self.mutable_set:
-			print("OREDERED_PAIR: " + "< " + ordered_pair.element_I + ", " + ordered_pair.element_J + " >")
+			print("OREDERED PAIR: " + "< " + ordered_pair.element_I + ", " + ordered_pair.element_J + " >")
 
 class SetOfDirectoryOrderedPairs(SetOfOrderedPairs): 
 	"""
@@ -215,7 +215,7 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs):
 			print(" }")
 		else:	
 			for ordered_pair in self.mutable_set:
-				print("ORDERED_PAIR_OF_DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.dir_name + "\"" + ", " + "\"" + ordered_pair.dir_J.dir_name + "\"" + " 〉")
+				print("ORDERED PAIR OF DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.dir_name + "\"" + ", " + "\"" + ordered_pair.dir_J.dir_name + "\"" + " 〉")
 
 class Tree():
 	"""
