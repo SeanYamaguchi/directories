@@ -2,7 +2,7 @@ import os
 import time
 import datetime
 from datetime import date
-# プロジェクトフォルダー
+# プロジェクト由来のモジュール。
 from libraries import classes
 from libraries import time_edit
 

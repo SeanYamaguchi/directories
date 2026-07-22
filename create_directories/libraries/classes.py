@@ -2,7 +2,7 @@ import os
 import time
 import datetime
 from datetime import date
-# プロジェクトフォルダー
+# プロジェクト由来のモジュール。
 from libraries import time_edit
 from libraries import sets
 from libraries import formulae
@@ -159,6 +159,9 @@ class SetOfDirectories(NormalSet):
 				print("DIRNAME: " + directory.dir_name + ", DIR_PATH: " + directory.dir_path)
 
 class TreeOfDirectories(SetOfDirectories):
+	"""
+	SetOfDirectoriesクラスと実質同様なクラス。
+	"""
 	def show(self):
 		print(self.mutable_set)
 
