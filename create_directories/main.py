@@ -14,27 +14,36 @@ def main() -> None:
 			print("プログラムを終了します。")
 			break
 		elif commandline_input == 'create_dirs_on_specific_time':
+			"""
+			ディレクトリを特定の時間に作成できるモード。
+			"""
 			directory_info_dict_list = []
 			given_datetime = time_edit.input_time_today()
 			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list)
 			create_data_functions.create_dirs_on_specific_time(given_datetime, directory_info_dict['directory_name'], directory_info_dict['directory_where'])
 		elif commandline_input == 'create_dirs':
+			"""
+			指定したディレクトリを作成できるモード。
+			"""
 			directory_info_dict_list = []
 			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list)	
 			create_data_functions.create_directories(directory_info_dict['directory_name'], directory_info_dict['directory_where'])
 		elif commandline_input == 'create_multiple_directories':
+			"""
+			木構造にそって指定した1つ以上のディレクトリを特定の時間に作成できるモード。
+			"""
 			file_or_directory_input = input("Tree構造状にディレクトリを作成しますか？ T/F: ")
 			if (file_or_directory_input == "T"): # tree構造状にディレクトリを作成する。
 				directory_tree = classes.SetOfDirectories()
 				directory_info_dict_list = []
-				# ルートディレクトリを指定する。
-				if_create_root_directory = input("ルートディレクトリとなるディレクトリを作成しますか？ 作成しない場合は、既存のディレクトリから選択することになります。　T/F: ")
+				# ルートとなるディレクトリを指定する。
+				if_create_root_directory = input("ルートとなるディレクトリとなるディレクトリを作成しますか？ 作成しない場合は、既存のディレクトリから選択することになります。　T/F: ")
 				if (if_create_root_directory == "T"):
 					root_directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, True, True, True)
 				else:
 					root_directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, False, True, True)
 				directory_info_dict_list.append(root_directory_info_dict)
-
+				# ルートとなるディレクトリ以外のディレクトリを指定する。
 				c=0
 				while True:
 					directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, True)
