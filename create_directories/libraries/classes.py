@@ -53,7 +53,7 @@ class Directory():
 			print("DIR OR DIRS RELATED AND RANK PLUS 1: " + (str)(self.dir_or_dirs_related_and_rank_plus_1))
 			print("NODE ID: " + (str)(self.node_id))
 
-	def set_dir_path(self): # 一度だけ呼び出せるようにする。
+	def set_dir_path(self):
 		self.dir_path = self.dir_where + "\\" + self.dir_name
 
 	def set_root_dir_path(self, root_dir_path:str):
@@ -73,7 +73,10 @@ class Directory():
 					self.set_for_calculation.add((int)(directory.rank + 1))
 				self.rank = max(self.set_for_calculation)
 	
-	def calculate_height_of_element(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs): # rankでheightを定義。
+	def calculate_height_of_element(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs): 
+		"""
+		ノードのheightを定義する関数。rankでheightを定義している。
+		"""
 		if (self.rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
 		self.height = self.rank
