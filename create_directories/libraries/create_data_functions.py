@@ -87,6 +87,20 @@ def create_directory_info(directory_info_dict_list:list, directory_id:int, if_cr
 		directory_info_dict['is_root_directory'] = False
 	return directory_info_dict
 
+def create_root_directory_info(directory_info_dict_list:list) -> list:
+	# ルートとなるディレクトリを指定する。
+	while True:
+		if_create_root_directory = input("木構造上にディレクトリを作成します。ルートとなるディレクトリとなるディレクトリを作成しますか？ 作成しない場合は、既存のディレクトリから選択することになります。　[ Y/N ]: ")
+		if (if_create_root_directory == "Y"):
+			root_directory_info_dict = create_directory_info(directory_info_dict_list, 0, True, True, True)
+			break
+		elif (if_create_root_directory == "N"):
+			root_directory_info_dict = create_directory_info(directory_info_dict_list, 0, False, True, True)
+			break
+		else:
+			print("入力が正しくありません。")
+			pass
+
 """
 def create_tree_info(directory_info_dict_list:list):
 
