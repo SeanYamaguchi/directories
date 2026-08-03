@@ -9,30 +9,30 @@ from libraries import formulae, sets, create_data_functions
 
 def main() -> None:
 	while True:
-		print("[ 0.0 ] : create directories ......")
-		print("[ 0.1 ] : create directories on specific time ......")
-		print("[  1  ] : create multiple directories ......")
+		print("[ 0.0 ] : create a directory ...... TYPE 0.0")
+		print("[ 0.1 ] : create a directory on specific time ...... TYPE 0.1")
+		print("[  1  ] : create multiple directories ...... TYPE 1")
 		commandline_input = input("入力待ち: ")
 
 		if commandline_input == 'later':
 			print("プログラムを終了します。")
 			break
 		
-		elif (commandline_input == 'create_directories_on_specific_time') or (commandline_input == '0.1'):
+		elif (commandline_input == 'create_a_directory_on_specific_time') or (commandline_input == '0.1'):
 			"""
 			ディレクトリを特定の時間に作成できるモード。
 			"""
 			directory_info_dict_list = []
 			given_datetime = time_edit.input_time_today()
-			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list)
+			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, 0)
 			create_data_functions.create_dirs_on_specific_time(given_datetime, directory_info_dict['directory_name'], directory_info_dict['directory_where'])
 		
-		elif (commandline_input == 'create_directories') or (commandline_input == '0.0'):
+		elif (commandline_input == 'create_a_directory') or (commandline_input == '0.0'):
 			"""
 			指定したディレクトリを作成できるモード。
 			"""
 			directory_info_dict_list = []
-			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list)	
+			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, 0)	
 			create_data_functions.create_directories(directory_info_dict['directory_name'], directory_info_dict['directory_where'])
 		
 		elif (commandline_input == 'create_multiple_directories') or (commandline_input == '1'):
@@ -45,12 +45,12 @@ def main() -> None:
 	
 			# ルートとなるディレクトリを指定する。
 			while True:
-				if_create_root_directory = input("ルートとなるディレクトリとなるディレクトリを作成しますか？ 作成しない場合は、既存のディレクトリから選択することになります。　[ Y/N ]: ")
+				if_create_root_directory = input("木構造上にディレクトリを作成します。ルートとなるディレクトリとなるディレクトリを作成しますか？ 作成しない場合は、既存のディレクトリから選択することになります。　[ Y/N ]: ")
 				if (if_create_root_directory == "Y"):
-					root_directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, True, True, True)
+					root_directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, 0, True, True, True)
 					break
 				elif (if_create_root_directory == "N"):
-					root_directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, False, True, True)
+					root_directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, 0, False, True, True)
 					break
 				else:
 					print("入力が正しくありません。")
@@ -58,15 +58,15 @@ def main() -> None:
 			directory_info_dict_list.append(root_directory_info_dict)
 			
 			# ルートとなるディレクトリ以外のディレクトリを指定する。
-			c=0
+			c=1
 			while True:
-				directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, True)
+				directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, c, True)
 				directory_info_dict_list.append(directory_info_dict)
-				directory_tree.add_element(classes.Directory(directory_info_dict['directory_name'], directory_info_dict['directory_where'], directory_info_dict['root_dir_path'], directory_info_dict['tree_mode'], c))
+				directory_tree.add_element(classes.Directory(directory_info_dict['directory_name'], directory_info_dict['directory_where'], directory_info_dict['root_dir_path'], directory_info_dict['tree_mode'], directory_info_dict['directory_id']))
 				
 				if_show = input("現状作成予定のディレクトリ情報表示しますか？ [ Y/N ]: ")
 				if (if_show	== "Y"):
-					directory_tree.show()
+					directory_tree.show_with_directory_id()
 
 				if_more = input("さらにディレクトリを作成しますか？ [ Y/N ]: ")
 				if (if_more == "Y"):

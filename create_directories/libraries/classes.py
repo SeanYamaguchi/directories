@@ -161,6 +161,16 @@ class SetOfDirectories(NormalSet):
 				directory.set_dir_path()
 				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 
+	def show_with_directory_id(self):
+		if (directory.directory_id != None for directory in self.mutable_set):
+			for directory in self.mutable_set:
+				directory.set_dir_path()
+				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
+		else:
+			for directory in self.mutable_set:
+				directory.set_dir_path()
+				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
+
 class TreeOfDirectories(SetOfDirectories):
 	"""
 	SetOfDirectoriesクラスと実質同様なクラス。
