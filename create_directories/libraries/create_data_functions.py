@@ -7,7 +7,7 @@ from libraries import classes
 from libraries import time_edit
 from libraries import formulae
 
-def create_dirs_on_specific_time(given_t:datetime, directory_name:str, dir_related_and_rank_minus_1:str) -> None:
+def create_directories_on_specific_time(given_t:datetime, directory_name:str, dir_related_and_rank_minus_1:str) -> None:
 	"""
 	特定の時間にディレクトリを1つ以上作成することができる関数。
 	"""
