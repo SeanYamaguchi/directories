@@ -23,7 +23,7 @@ def create_directories_on_specific_time(given_t:datetime, directory_name:str, di
 
 def create_directories(dir_name:str, dir_related_and_rank_minus_1:str) -> None:
 	"""
-	ディレクトリを1つ以上作成する関数。
+	ディレクトリを１つ以上作成する関数。
 	"""
 	current_wd = os.getcwd()
 	if ((dir_related_and_rank_minus_1 == current_wd)):

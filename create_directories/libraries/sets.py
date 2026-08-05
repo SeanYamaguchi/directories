@@ -21,7 +21,7 @@ def create_set_of_ordered_pairs_from_set_of_directories(set_of_directories:SetOf
 
 def create_relation(relation_method:function, set_of_ordered_pairs:SetOfDirectoryOrderedPairs) -> SetOfDirectoryOrderedPairs:
 	"""
-	順序対の集合から関係を構成する関数。 -- 適当な論理式(formula)を満たす部分集合を定義できるようにする。
+	順序対の集合から関係を構成する関数。論理式の役割をする関数。 (formula) についてそれを満たす部分集合を定義できるようにする。
 
 	"""
 	set_of_related_ordered_pairs = classes.SetOfDirectoryOrderedPairs()
@@ -34,7 +34,7 @@ def create_relation(relation_method:function, set_of_ordered_pairs:SetOfDirector
 
 def is_related_with_certain_directory(relation_method:function, directory:Directory, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs, return_elements:bool = False) -> SetOfDirectoryOrderedPairs:
 	"""
-	特定のディレクトリとディレクトリのsetのそれぞれの要素を比較する関数。
+	特定のディレクトリとディレクトリのset (SetOfDirectories) のそれぞれの要素を比較する関数。
 	
 	"""
 	set_of_related_ordered_pairs = classes.SetOfDirectoryOrderedPairs()

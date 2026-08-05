@@ -51,7 +51,7 @@ def main() -> None:
 				directory_info_dict_list.append(directory_info_dict)
 				directory_tree.add_element(classes.Directory(directory_info_dict['directory_name'], directory_info_dict['directory_where'], directory_info_dict['root_dir_path'], directory_info_dict['tree_mode'], directory_info_dict['directory_id']))
 				
-				if_show = input("現状作成予定のディレクトリ情報表示しますか？ [ Y/N ]: ")
+				if_show = input("現状作成予定のルートディレクトリ以外のディレクトリの情報表示しますか？ [ Y/N ]: ")
 				if (if_show	== "Y"):
 					directory_tree.show_with_directory_id()
 
