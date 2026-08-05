@@ -19,7 +19,7 @@ def create_set_of_ordered_pairs_from_set_of_directories(set_of_directories:SetOf
 	new_set_of_directory_ordered_pairs.create_frozenset()
 	return new_set_of_directory_ordered_pairs
 
-def create_relation(relation_method:formula, set_of_ordered_pairs:SetOfDirectoryOrderedPairs) -> SetOfDirectoryOrderedPairs:
+def create_relation(relation_method:function, set_of_ordered_pairs:SetOfDirectoryOrderedPairs) -> SetOfDirectoryOrderedPairs:
 	"""
 	順序対の集合から関係を構成する関数。 -- 適当な論理式(formula)を満たす部分集合を定義できるようにする。
 

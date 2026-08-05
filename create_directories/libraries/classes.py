@@ -128,7 +128,7 @@ class NormalSet():
 		self.frozenset = set()
 		self.frozen:bool = False
 
-	def add_element(self, element:Set):
+	def add_element(self, element):
 		if (self.frozen == True):
 			pass
 		else:
@@ -141,7 +141,7 @@ class NormalSet():
 		else:
 			pass
 
-	def remove_element(self, element:Set):
+	def remove_element(self, element):
 		if (self.frozen == True):
 			pass
 		else:
@@ -182,7 +182,7 @@ class OrderedPair(NormalSet):
 	"""
 	順序対を表現するクラス。
 	"""
-	def __init__(self, element_I:Set, element_J:Set):
+	def __init__(self, element_I, element_J):
 		self.element_I = element_I
 		self.element_J = element_J
 		self.mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
