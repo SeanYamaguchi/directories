@@ -11,9 +11,9 @@ class Directory():
 	"""	
 	ディレクトリに関する情報を管理するクラス。
 	"""
-	def __init__(self, dir_name:str = None, dir_where:str = None, root_dir_path:str = None, tree_mode:bool = False, directory_id:int = None):	
+	def __init__(self, directory_name:str = None, dir_where:str = None, root_dir_path:str = None, tree_mode:bool = False, directory_id:int = None):	
 		# Info As Directory
-		self.dir_name = dir_name
+		self.__directory_name = directory_name
 		self.dir_where = dir_where
 		self.dir_path = None
 		self.is_tree_node = False
@@ -29,13 +29,17 @@ class Directory():
 		self.set_for_calculation = set()
 		self.rank = None # (基礎論の文脈における)typeで決定することが可能。	
 		self.height = None
-		self.dir_name_related_and_rank_minus_1:Directory = None
+		self.directory_name_related_and_rank_minus_1:Directory = None
 		self.dir_or_dirs_related_and_rank_plus_1:SetOfDirectories = SetOfDirectories()
 		self.node_id = None
 
+	@property
+	def directory_name(self)
+		return self.__directory_name
+
 	def show_directory_info(self) -> None:
 		print("DIRNUM: " + (str)(self.directory_id))
-		print("DIRNAME: " + self.dir_name)
+		print("DIRNAME: " + self.__directory_name)
 		print("DIRWHERE: " + self.dir_where)
 		print("DIRPATH: " + self.dir_path)
 		print("IS TREE NODE: " + self.is_tree_node) 
@@ -54,7 +58,7 @@ class Directory():
 			print("NODE ID: " + (str)(self.node_id))
 
 	def set_directory_path(self) -> None:
-		self.dir_path = self.dir_where + "\\" + self.dir_name
+		self.dir_path = self.dir_where + "\\" + self.__directory_name
 
 	def get_directory_path(self) -> str:
 		return self.dir_path
@@ -158,21 +162,21 @@ class SetOfDirectories(NormalSet):
 		if (directory.directory_id != None for directory in self.mutable_set):
 			for directory in self.mutable_set:
 				directory.set_directory_path()
-				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
+				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
 		else:
 			for directory in self.mutable_set:
 				directory.set_directory_path()
-				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
+				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
 
 	def show_with_directory_id(self) -> None:
 		if (directory.directory_id != None for directory in self.mutable_set):
 			for directory in self.mutable_set:
 				directory.set_directory_path()
-				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
+				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
 		else:
 			for directory in self.mutable_set:
 				directory.set_directory_path()
-				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
+				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
 
 class TreeOfDirectories(SetOfDirectories):
 	"""
@@ -221,7 +225,7 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs):
 			c = 0
 			for ordered_pair in self.mutable_set:
 				c += 1
-				print("〈 " + "\"" + ordered_pair.dir_I.dir_name + "\"" + ", " + "\"" + ordered_pair.dir_J.dir_name + "\"" + " 〉", end=" ")
+				print("〈 " + "\"" + ordered_pair.dir_I.directory_name + "\"" + ", " + "\"" + ordered_pair.dir_J.directory_name + "\"" + " 〉", end=" ")
 				if (0 <= c and c < len(self.mutable_set)):
 					print(", ", end=" ")
 				elif (c == len(self.mutable_set)):
@@ -231,7 +235,7 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs):
 			print(" }")
 		else:	
 			for ordered_pair in self.mutable_set:
-				print("ORDERED PAIR OF DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.dir_name + "\"" + ", " + "\"" + ordered_pair.dir_J.dir_name + "\"" + " 〉")
+				print("ORDERED PAIR OF DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.directory_name + "\"" + ", " + "\"" + ordered_pair.dir_J.directory_name + "\"" + " 〉")
 
 class Tree():
 	"""
