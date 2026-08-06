@@ -8,13 +8,13 @@ sys.path.append(os.path.join(upper_directory, 'create_directories'))
 from libraries import classes, create_data_functions, formulae, sets
 
 directory_root = classes.Directory('directory_root', 'directory_root_where', 'directory_root_where\\directory_root', True, 0)
-directory_root.set_dir_path()
+directory_root.set_directory_path()
 
 directory_M = classes.Directory('directory_M', 'directory_root_where\\directory_root', 'directory_root_where\\directory_root', True, 1)
-directory_M.set_dir_path()
+directory_M.set_directory_path()
 
 directory_N = classes.Directory('directory_N', 'directory_root_where\\directory_root\\directory_M', 'directory_root_where\\directory_root', True, 2)
-directory_N.set_dir_path()
+directory_N.set_directory_path()
 
 ordered_pair_directory_M_comma_directory_N = classes.DirectoryOrderedPair(directory_M, directory_N)
 ordered_pair_directory_N_comma_directory_M = classes.DirectoryOrderedPair(directory_N, directory_M)
@@ -81,4 +81,23 @@ class TestFormulaDirectoryJIsBelowDirectoryI(unittest.TestCase):
 	def test_directory_N_is_not_below_directory_M(self):
 		self.assertEqual(formulae.formula_directory_J_is_below_directory_I(ordered_pair_directory_N_comma_directory_M), False)
 
+class TestFormulaDirectoryJIsEqualToOrBelowDirectoryIOtherType(unittest.TestCase):
+	def test_directory_M_is_equal_to_or_below_directory_N(self):
+		self.assertEqual(formulae.formula_directory_J_is_equal_to_or_below_directory_I_other_type(directory_M.get_directory_path(), directory_N.get_directory_path()), True)
+
+	def test_directory_M_is_equal_to_or_below_directory_M(self):
+		self.assertEqual(formulae.formula_directory_J_is_equal_to_or_below_directory_I_other_type(directory_M.get_directory_path(), directory_M.get_directory_path()), True)
+
+	def test_directory_N_is_neither_equal_to_nor_below_directory_M(self):
+		self.assertEqual(formulae.formula_directory_J_is_equal_to_or_below_directory_I_other_type(directory_N.get_directory_path(), directory_M.get_directory_path()), False)
+
+class TestFormulaDirectoryJIsBelowDirectoryIOtherType(unittest.TestCase):
+	def test_directory_M_is_below_directory_N(self):
+		self.assertEqual(formulae.formula_directory_J_is_below_directory_I_other_type(directory_M.get_directory_path(), directory_N.get_directory_path()), True)
+
+	def test_directory_M_is_not_below_directory_M(self):
+		self.assertEqual(formulae.formula_directory_J_is_below_directory_I_other_type(directory_M.get_directory_path(), directory_M.get_directory_path()), False)
+
+	def test_directory_N_is_not_below_directory_M(self):
+		self.assertEqual(formulae.formula_directory_J_is_below_directory_I_other_type(directory_N.get_directory_path(), directory_M.get_directory_path()), False)
 unittest.main(argv=['first-arg-is-ignored'], exit=False)

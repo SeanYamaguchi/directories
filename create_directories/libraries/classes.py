@@ -56,6 +56,9 @@ class Directory():
 	def set_directory_path(self) -> None:
 		self.dir_path = self.dir_where + "\\" + self.dir_name
 
+	def get_directory_path(self) -> str:
+		return self.dir_path
+
 	def set_root_directory_path(self, root_dir_path:str) -> None:
 		self.root_dir_path = root_dir_path
 
