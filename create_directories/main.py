@@ -64,7 +64,7 @@ def main() -> None:
 			set_of_directories = classes.SetOfDirectories()
 			for directory_info in directory_info_dict_list:
 				directory = classes.Directory(directory_info['directory_name'], directory_info['directory_where'], directory_info['root_dir_path'], directory_info['tree_mode'])
-				directory.set_dir_path()
+				directory.set_directory_path()
 				set_of_directories.add_element(directory)
 
 			set_of_directory_ordered_pairs = sets.create_set_of_ordered_pairs_from_set_of_directories(set_of_directories.mutable_set)				

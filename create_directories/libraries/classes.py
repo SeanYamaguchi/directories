@@ -53,10 +53,10 @@ class Directory():
 			print("DIR OR DIRS RELATED AND RANK PLUS 1: " + (str)(self.dir_or_dirs_related_and_rank_plus_1))
 			print("NODE ID: " + (str)(self.node_id))
 
-	def set_dir_path(self) -> None:
+	def set_directory_path(self) -> None:
 		self.dir_path = self.dir_where + "\\" + self.dir_name
 
-	def set_root_dir_path(self, root_dir_path:str) -> None:
+	def set_root_directory_path(self, root_dir_path:str) -> None:
 		self.root_dir_path = root_dir_path
 
 	def calculate_rank(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None: # Every node has its rank, one and only.
@@ -112,8 +112,8 @@ class Directory():
 				self.dir_or_dirs_related_and_rank_plus_1.append(directory)
 
 	def set_tree_info(self) -> None:
-		self.set_dir_path()
-		self.set_root_dir_path()
+		self.set_directory_path()
+		self.set_root_directory_path()
 		self.calculate_rank()
 		self.calculate_height_of_element()
 		self.set_dir_related_and_rank_minus_1()
@@ -154,21 +154,21 @@ class SetOfDirectories(NormalSet):
 	def show(self) -> None:
 		if (directory.directory_id != None for directory in self.mutable_set):
 			for directory in self.mutable_set:
-				directory.set_dir_path()
+				directory.set_directory_path()
 				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 		else:
 			for directory in self.mutable_set:
-				directory.set_dir_path()
+				directory.set_directory_path()
 				print("DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 
 	def show_with_directory_id(self) -> None:
 		if (directory.directory_id != None for directory in self.mutable_set):
 			for directory in self.mutable_set:
-				directory.set_dir_path()
+				directory.set_directory_path()
 				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 		else:
 			for directory in self.mutable_set:
-				directory.set_dir_path()
+				directory.set_directory_path()
 				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 
 class TreeOfDirectories(SetOfDirectories):
