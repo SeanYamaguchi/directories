@@ -51,7 +51,6 @@ def create_directory_info(directory_info_dict_list:list, directory_id:int, if_cr
 			directory_info_dict['directory_name'] = dir_segments[-1]
 			directory_info_dict['directory_where'] = directory_info_dict['directory_path'].strip(directory_info_dict['directory_name'])
 			directory_info_dict['directory_where'] = directory_info_dict['directory_where'].strip('\\')
-
 	else:
 		directory_info_dict['directory_name'] = input("作成するディレクトリ名称を入力してください。: ")
 		print(directory_info_dict['directory_name'])
@@ -81,6 +80,60 @@ def create_directory_info(directory_info_dict_list:list, directory_id:int, if_cr
 			if ((directory_info_dict_list != []) and (not(formulae.formula_directory_J_is_equal_to_or_below_directory_I_other_type(directory_info_dict_list[0]['directory_where'], directory_info_dict['directory_where'])))):
 				print("作成するディレクトリを配下する場所のパスは、既に一つ以上のディレクトリを指定している場合、作成予定のディレクトリ全てを下に持つディレクトリを持っている必要があります。")
 
+	if (is_root_directory == True):
+		directory_info_dict['root_dir_path'] = directory_info_dict['directory_path']
+	if (is_root_directory == False and tree_mode == True):
+		directory_info_dict['root_dir_path'] = None # 既存のもの（既に他で決定されている。）
+	if (tree_mode == True):
+		directory_info_dict['tree_mode'] = True
+	if (is_root_directory == True):
+		directory_info_dict['is_root_directory'] = True
+		directory_info_dict['directory_id'] = 0
+	else:
+		directory_info_dict['is_root_directory'] = False
+	return directory_info_dict
+
+def create_directory_info_classical(directory_info_dict_list:list, directory_id:int, if_create:bool = True, tree_mode:bool = True, is_root_directory:bool = False) -> dict:
+	"""
+	ディレクトリに関する情報を辞書型で作成する関数。
+	"""
+	directory_info_dict = { 'directory_name': None, 'directory_where': None, 'directory_path': None }
+	directory_info_dict['directory_id'] = directory_id
+	if (if_create == False):
+		directory_info_dict['directory_path'] = input("選択するディレクトリのパスを入力してください。")
+		dir_segments = directory_info_dict['directory_path'].split('\\')
+		if (dir_segments[-1] == ''):
+			directory_info_dict['directory_name'] = dir_segments[-2]
+			directory_info_dict['directory_where'] = directory_info_dict['directory_path'].strip('\\')
+			directory_info_dict['directory_where'] = directory_info_dict['directory_path'].strip(directory_info_dict['directory_name'])
+			directory_info_dict['directory_where'] = directory_info_dict['directory_path'].strip('\\')
+		else:
+			directory_info_dict['directory_name'] = dir_segments[-1]
+			directory_info_dict['directory_where'] = directory_info_dict['directory_path'].strip(directory_info_dict['directory_name'])
+			directory_info_dict['directory_where'] = directory_info_dict['directory_where'].strip('\\')
+
+	else:
+		print('')
+		directory_info_dict['directory_name'] = input("作成するディレクトリ名称を入力してください。: ")
+		current_working_dir = os.getcwd()
+		standard_path = current_working_dir.strip('create_directories') + 'box_of_test_directories'
+		print("作成するディレクトリを配下する場所のパスを指定してください。標準: {}".format(standard_path))
+		if (directory_info_dict_list != []):
+			for directory_info in directory_info_dict_list:
+				print("ID: ", (str)(directory_info['directory_id']) + ", DIR NAME: " + directory_info['directory_name'] + ", DIR_PATH: " + directory_info['directory_path'])
+		directory_info_dict['directory_where'] = input("標準でいい場合は、そのままエンターキーを押してください。: ")
+		# 簡単に説明すれば、tree_modeがTrueの場合はルートディレクトリの下にあるかどうかを確認する。
+		if ((directory_info_dict_list != []) and (not(formulae.formula_directory_J_is_equal_to_or_below_directory_I_other_type(directory_info_dict_list[0]['directory_where'], directory_info_dict['directory_where'])))):
+			print("作成するディレクトリを配下する場所のパスは、既に一つ以上のディレクトリを指定している場合、作成予定のディレクトリ全てを下に持つディレクトリを持っている必要があります。")
+		if ((directory_info_dict['directory_where'] == current_working_dir) or (directory_info_dict['directory_where'] == "")):
+			directory_info_dict['directory_where'] = standard_path
+			directory_info_dict['directory_path'] = standard_path + '\\' + directory_info_dict['directory_name']
+			directory_info_dict['tree_mode'] = None
+			directory_info_dict['root_dir_path'] = None
+		else:
+			directory_info_dict['directory_path'] = directory_info_dict['directory_where'] + '\\' + directory_info_dict['directory_name']
+			directory_info_dict['tree_mode'] = None
+			directory_info_dict['root_dir_path'] = None
 	if (is_root_directory == True):
 		directory_info_dict['root_dir_path'] = directory_info_dict['directory_path']
 	if (is_root_directory == False and tree_mode == True):

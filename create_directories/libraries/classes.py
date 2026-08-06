@@ -174,13 +174,6 @@ class SetOfDirectories(NormalSet):
 				directory.set_directory_path()
 				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.dir_name + ", DIRPATH: " + directory.dir_path)
 
-class TreeOfDirectories(SetOfDirectories):
-	"""
-	SetOfDirectoriesクラスと実質同様なクラス。
-	"""
-	def show(self) -> None:
-		print(self.mutable_set)
-
 class OrderedPair(NormalSet):
 	"""
 	順序対を表現するクラス。

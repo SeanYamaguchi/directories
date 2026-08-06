@@ -24,7 +24,7 @@ def main() -> None:
 			"""
 			directory_info_dict_list = []
 			given_datetime = time_edit.input_time_today()
-			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, 0)
+			directory_info_dict = create_data_functions.create_directory_info_classical(directory_info_dict_list, 0)
 			create_data_functions.create_directories_on_specific_time(given_datetime, directory_info_dict['directory_name'], directory_info_dict['directory_where'])
 		
 		elif (commandline_input == 'create_a_directory') or (commandline_input == '0.0'):
@@ -32,7 +32,7 @@ def main() -> None:
 			指定したディレクトリを作成できるモード。
 			"""
 			directory_info_dict_list = []
-			directory_info_dict = create_data_functions.create_directory_info(directory_info_dict_list, 0)	
+			directory_info_dict = create_data_functions.create_directory_info_classical(directory_info_dict_list, 0)	
 			create_data_functions.create_directories(directory_info_dict['directory_name'], directory_info_dict['directory_where'])
 		
 		elif (commandline_input == 'create_multiple_directories') or (commandline_input == '1'):
