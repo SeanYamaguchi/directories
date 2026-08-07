@@ -11,98 +11,145 @@ class Directory():
 	"""	
 	ディレクトリに関する情報を管理するクラス。
 	"""
-	def __init__(self, directory_name:str = None, dir_where:str = None, root_dir_path:str = None, tree_mode:bool = False, directory_id:int = None):	
+	def __init__(self, directory_name:str, directory_where:str, root_directory_path:str = None, tree_mode:bool = False, directory_id:int = None):	
 		# Info As Directory
 		self.__directory_name = directory_name
-		self.dir_where = dir_where
-		self.dir_path = None
-		self.is_tree_node = False
+		self.__directory_where = directory_where
+		self.__directory_path = self.__directory_where + "\\" + self.__directory_name
+		self.__is_tree_node = False
 		if (tree_mode == True):
-			self.is_tree_node = True
+			self.__is_tree_node = True
 		else:
 			pass
-		self.directory_id = directory_id
-
+		self.__directory_id = directory_id
 		# Info As Tree Node
-		self.root_dir_path = root_dir_path
-		self.set_for_calculate_rank = SetOfDirectories()
-		self.set_for_calculation = set()
-		self.rank = None # (基礎論の文脈における)typeで決定することが可能。	
-		self.height = None
-		self.directory_name_related_and_rank_minus_1:Directory = None
-		self.dir_or_dirs_related_and_rank_plus_1:SetOfDirectories = SetOfDirectories()
-		self.node_id = None
-
-	@property
-	def directory_name(self)
-		return self.__directory_name
+		self.__root_directory_path = root_directory_path
+		self.__set_for_calculate_rank = SetOfDirectories()
+		self.__set_for_calculation = set()
+		self.__rank = None # (基礎論の文脈における)typeで決定することが可能。	
+		self.__height = None
+		self.__directory_name_related_and_rank_minus_1:Directory = None
+		self.__dir_or_dirs_related_and_rank_plus_1:SetOfDirectories = SetOfDirectories()
 
 	def show_directory_info(self) -> None:
 		print("DIRNUM: " + (str)(self.directory_id))
 		print("DIRNAME: " + self.__directory_name)
-		print("DIRWHERE: " + self.dir_where)
-		print("DIRPATH: " + self.dir_path)
-		print("IS TREE NODE: " + self.is_tree_node) 
-		print("DIRID: " + self.directory_id)
-		if (self.is_tree_node == False):
-			print("TREE_NODE: " + self.is_tree_node)
+		print("DIRWHERE: " + self.__directory_where)
+		print("DIRPATH: " + self.__directory_path)
+		print("IS TREE NODE: " + self.__is_tree_node) 
+		print("DIRID: " + self.__directory_id)
+		if (self.__is_tree_node == False):
+			print("TREE_NODE: " + self.__is_tree_node)
 		else:
 			pass
 			print("------ Info As Tree Node ------")
-			print("HEIGHT: " + (str)(self.height))
-			print("RANK: " + (str)(self.rank))
-			print("DIR NAME RELATED AND RANK MINUS 1: " + (str)(self.dir_related_and_rank_minus_1))
-			print("DIR ROOT DIR PATH: " + (str)(self.root_dir_path))
-			print("DIR RELATED AND RANK MINUS 1: " + (str)(self.dir_related_and_rank_minus_1))
-			print("DIR OR DIRS RELATED AND RANK PLUS 1: " + (str)(self.dir_or_dirs_related_and_rank_plus_1))
-			print("NODE ID: " + (str)(self.node_id))
+			print("RANK: " + (str)(self.__rank))
+			print("HEIGHT: " + (str)(self.__height))
+			print("DIR NAME RELATED AND RANK MINUS 1: " + (str)(self.__dir_related_and_rank_minus_1))
+			print("DIR ROOT DIR PATH: " + (str)(self.__root_directory_path))
+			print("DIR RELATED AND RANK MINUS 1: " + (str)(self.__dir_related_and_rank_minus_1))
+			print("DIR OR DIRS RELATED AND RANK PLUS 1: " + (str)(self.__dir_or_dirs_related_and_rank_plus_1))
 
-	def set_directory_path(self) -> None:
-		self.dir_path = self.dir_where + "\\" + self.__directory_name
+	@property
+	def directory_name(self) -> str:
+		return self.__directory_name
 
-	def get_directory_path(self) -> str:
-		return self.dir_path
+	@directory_name.setter
+	def directory_name(self, directory_name:str) -> None:
+		self.__directory_name = directory_name
 
-	def set_root_directory_path(self, root_dir_path:str) -> None:
-		self.root_dir_path = root_dir_path
+	@property
+	def directory_where(self) -> str:
+		return self.__directory_where
 
+	@directory_where.setter
+	def directory_where(self, directory_where:str) -> None:
+		self.__directory_where = directory_where
+
+	@property
+	def directory_path(self) -> str:
+		return self.__directory_path
+
+	def calculate_directory_path(self) -> None:
+		self.__directory_path = self.__directory_where + "\\" + self.__directory_name
+
+	@property
+	def is_tree_node(self) -> bool:
+		return self.__is_tree_node
+
+	@is_tree_node.setter
+	def is_tree_node(self, is_tree_node:bool) -> None:
+		self.__is_tree_node = is_tree_node
+
+	@property
+	def directory_id(self) -> int:
+		return self.__directory_id
+
+	def is_directory_tree_node(self) -> bool:
+		return True if (self.__is_tree_node == True) else False
+	
+	@property
+	def root_directory_path(self) -> str:
+		return self.__root_directory_path
+	
+	@root_directory_path.setter
+	def root_directory_path(self, root_directory_path:str) -> None:
+		self.__root_directory_path = root_directory_path
+
+	@property
+	def set_for_calculation_rank(self) -> SetOfDirectories:
+		return self.__set_for_calculation_rank
+	
+	@property
+	def set_for_calculation(self) -> set:
+		return self. __set_for_calculation
+
+	@property
+	def rank(self) -> int:
+		return self.__rank
+	
 	def calculate_rank(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None: # Every node has its rank, one and only.
-		if (self.is_tree_node == False):
+		if (self.__is_tree_node == False):
 			pass
 		else:
-			self.set_for_calculate_rank = sets.is_related_with_certain_directory(formulae.formula_directory_J_is_below_directory_I_other_type, self, set_of_directory_ordered_pairs, True) # 予め、正しく計算されている。
-			if ((self.set_for_calculate_rank.mutable_set) <= set()):
-				self.rank = 0
+			self.__set_for_calculate_rank = sets.is_related_with_certain_directory(formulae.formula_directory_J_is_below_directory_I_other_type, self, set_of_directory_ordered_pairs, True) # 予め、正しく計算されている。
+			if ((self.__set_for_calculate_rank.mutable_set) <= set()):
+				self.__rank = 0
 			else:
-				for directory in self.set_for_calculate_rank.mutable_set:
+				for directory in self.__set_for_calculate_rank.mutable_set:
 					if (directory.rank == None):
 						directory.calculate_rank(set_of_directory_ordered_pairs)
-					self.set_for_calculation.add((int)(directory.rank + 1))
-				self.rank = max(self.set_for_calculation)
+					self.__set_for_calculation.add((int)(directory.rank + 1))
+				self.__rank = max(self.__set_for_calculation)
+
+	@property
+	def height(self) -> int:
+		return self.__height
 	
 	def calculate_height_of_element(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None: 
 		"""
 		ノードのheightを定義する関数。rankでheightを定義している。
 		"""
-		if (self.rank == None):
+		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
-		self.height = self.rank
+		self.__height = self.__rank
 
-	def set_dir_related_and_rank_minus_1(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
-		if (self.rank == None):
+	@property
+	def dir_related_and_rank_minus_1(self) -> Directory:
+		return self.__dir_related_and_rank_minus_1
+
+	def calculate_dir_related_and_rank_minus_1(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
+		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
-		if (self.rank == 0):
-			self.dir_related_and_rank_minus_1 = None
-		elif (self.rank > 0):
-			self.dir_related_and_rank_minus_1 = calculate_directory_of_max_rank(self.set_for_calculate_rank.mutable_set)
+		if (self.__rank == 0):
+			self.__dir_related_and_rank_minus_1 = None
+		elif (self.__rank > 0):
+			self.__dir_related_and_rank_minus_1 = calculate_directory_of_max_rank(self.__set_for_calculate_rank.mutable_set)
 		else:
 			pass
-	
-	def is_directory_tree_node(self) -> bool:
-		return True if (self.is_tree_node == True) else False
 
 	def calculate_directory_of_max_rank(self, set_of_directories:SetOfDirectories) -> Directory:
-		if (self.is_tree_node == False):
+		if (self.__is_tree_node == False):
 			print("NOT TREE")
 		else:
 			directory_of_max_rank = Directory()
@@ -111,40 +158,39 @@ class Directory():
 					directory_of_max_rank = directory
 			return directory
 
-	def set_dir_related_and_rank_plus_1(self, set_of_directories:SetOfDirectories, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
-		if (self.rank == None):
+	def calculate_dir_or_dirs_related_and_rank_plus_1(self, set_of_directories:SetOfDirectories, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
+		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
 		for directory in set_of_directories:
-			if (directory.mutable_set.rank == self.mutable_set.rank + 1):
-				self.dir_or_dirs_related_and_rank_plus_1.append(directory)
+			if (directory.mutable_set.rank == self.__mutable_set.rank + 1): # ここおかしい。
+				self.__dir_or_dirs_related_and_rank_plus_1.append(directory)
 
-	def set_tree_info(self) -> None:
-		self.set_directory_path()
-		self.set_root_directory_path()
+	def calculate_tree_info(self) -> None:
+		self.calculate_directory_path()
 		self.calculate_rank()
 		self.calculate_height_of_element()
-		self.set_dir_related_and_rank_minus_1()
-		self.dir_or_dirs_related_and_rank_plus_1()
+		self.calculate_dir_related_and_rank_minus_1()
+		self.calculate_dir_or_dirs_related_and_rank_plus_1()
 
 class NormalSet():
 	"""
 	本プログラムで扱う集合を表現するクラス
 	"""
 	def __init__(self) -> None:
-		self.mutable_set = set()
-		self.frozenset = set()
-		self.frozen:bool = False
+		self.__mutable_set = set()
+		self.__frozenset = set()
+		self.__frozen:bool = False
 
 	def add_element(self, element) -> None:
-		if (self.frozen == True):
+		if (self.__frozen == True):
 			pass
 		else:
-			self.mutable_set.add(element)
+			self.__mutable_set.add(element)
 	
 	def create_frozenset(self) -> None:
-		if (self.frozen == False):
-			self.frozenset = frozenset(self.mutable_set)
-			self.frozen = True
+		if (self.__frozen == False):
+			self.__frozenset = frozenset(self.__mutable_set)
+			self.__frozen = True
 		else:
 			pass
 
@@ -152,38 +198,38 @@ class NormalSet():
 		if (self.frozen == True):
 			pass
 		else:
-			self.mutable_set.discard(element)
+			self.__mutable_set.discard(element)
 
 class SetOfDirectories(NormalSet):
 	"""
 	ディレクトリの集合を表現するクラス
 	"""
 	def show(self) -> None:
-		if (directory.directory_id != None for directory in self.mutable_set):
-			for directory in self.mutable_set:
+		if (directory.directory_id != None for directory in self.__mutable_set):
+			for directory in self.__mutable_set:
 				directory.set_directory_path()
-				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
+				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 		else:
-			for directory in self.mutable_set:
+			for directory in self.__mutable_set:
 				directory.set_directory_path()
-				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
+				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 
 	def show_with_directory_id(self) -> None:
-		if (directory.directory_id != None for directory in self.mutable_set):
-			for directory in self.mutable_set:
-				directory.set_directory_path()
-				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
+		if (directory.directory_id != None for directory in self.__mutable_set):
+			for directory in self.__mutable_set:
+				directory.calculate_directory_path()
+				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 		else:
-			for directory in self.mutable_set:
+			for directory in self.__mutable_set:
 				directory.set_directory_path()
-				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.dir_path)
+				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 
 class TreeOfDirectories(SetOfDirectories):
 	"""
 	SetOfDirectoriesクラスと実質同様なクラス。
 	"""
 	def show(self) -> None:
-		print(self.mutable_set)
+		print(self.__mutable_set)
 
 class OrderedPair(NormalSet):
 	"""
@@ -192,7 +238,7 @@ class OrderedPair(NormalSet):
 	def __init__(self, element_I, element_J) -> None:
 		self.element_I = element_I
 		self.element_J = element_J
-		self.mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
+		self.__mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
 		self.ordered_pair:frozenset = frozenset([frozenset([self.element_I]), frozenset([self.element_I, self.element_J])])
 
 class DirectoryOrderedPair(OrderedPair):
@@ -204,7 +250,7 @@ class DirectoryOrderedPair(OrderedPair):
 		self.element_J = dir_J
 		self.dir_I = dir_I
 		self.dir_J = dir_J
-		self.mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
+		self.__mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
 		self.ordered_pair:frozenset = frozenset([frozenset([self.dir_I]), frozenset([self.dir_I, self.dir_J])])
 
 class SetOfOrderedPairs(NormalSet):
@@ -212,7 +258,7 @@ class SetOfOrderedPairs(NormalSet):
 	順序対の集合を定義するクラス。
 	"""
 	def show_ordered_pairs(self) -> None:
-		for ordered_pair in self.mutable_set:
+		for ordered_pair in self.__mutable_set:
 			print("OREDERED PAIR: " + "< " + ordered_pair.element_I + ", " + ordered_pair.element_J + " >")
 
 class SetOfDirectoryOrderedPairs(SetOfOrderedPairs): 
@@ -223,18 +269,18 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs):
 		if (set_representation == True):
 			print("{ ", end=" ")
 			c = 0
-			for ordered_pair in self.mutable_set:
+			for ordered_pair in self.__mutable_set:
 				c += 1
 				print("〈 " + "\"" + ordered_pair.dir_I.directory_name + "\"" + ", " + "\"" + ordered_pair.dir_J.directory_name + "\"" + " 〉", end=" ")
-				if (0 <= c and c < len(self.mutable_set)):
+				if (0 <= c and c < len(self.__mutable_set)):
 					print(", ", end=" ")
-				elif (c == len(self.mutable_set)):
+				elif (c == len(self.__mutable_set)):
 					print("", end=" ")
 				else:
 					print("", end=" ")
 			print(" }")
 		else:	
-			for ordered_pair in self.mutable_set:
+			for ordered_pair in self.__mutable_set:
 				print("ORDERED PAIR OF DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.directory_name + "\"" + ", " + "\"" + ordered_pair.dir_J.directory_name + "\"" + " 〉")
 
 class Tree():

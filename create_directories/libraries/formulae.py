@@ -7,10 +7,10 @@ from libraries import classes
 from libraries import time_edit
 
 def formula_directory_J_is_equal_to_or_below_directory_I(ordered_pair:DirectoryOrderedPair) -> bool: # dir_I < dir_Jをdir_I\dir_Jのことと定める。 dir_I, dir_Jのルートディレクトリは一致するという前提。
-	return True if (ordered_pair.dir_J.dir_path.find(ordered_pair.dir_I.dir_path) != -1) else False
+	return True if (ordered_pair.dir_J.directory_path.find(ordered_pair.dir_I.directory_path) != -1) else False
 
 def formula_directory_J_is_equal_to_directory_I(ordered_pair:DirectoryOrderedPair) -> bool:
-	return True if (ordered_pair.dir_J.dir_path == ordered_pair.dir_I.dir_path) else False 	
+	return True if (ordered_pair.dir_J.directory_path == ordered_pair.dir_I.directory_path) else False 	
 
 def formula_directory_J_is_not_directory_I(ordered_pair:DirectoryOrderedPair) -> bool:
 	return True if (not (formula_directory_J_is_equal_to_directory_I(ordered_pair))) else False
