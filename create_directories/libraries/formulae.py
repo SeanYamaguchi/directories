@@ -6,7 +6,7 @@ from datetime import date
 from libraries import classes
 from libraries import time_edit
 
-def formula_directory_J_is_equal_to_or_below_directory_I(ordered_pair:DirectoryOrderedPair) -> bool: # directory_I < directory_Jをdirectory_I\directory_Jのことと定める。 directory_I, directory_Jのルートディレクトリは一致するという前提。
+def formula_directory_J_is_equal_to_or_below_directory_I(ordered_pair:DirectoryOrderedPair) -> bool:  # directory_I < directory_Jをdirectory_I\directory_Jのことと定める。 ただし、directory_I, directory_Jのルートディレクトリは一致するという前提。
 	return True if (ordered_pair.directory_J.directory_path.find(ordered_pair.directory_I.directory_path) != -1) else False
 
 def formula_directory_J_is_equal_to_directory_I(ordered_pair:DirectoryOrderedPair) -> bool:

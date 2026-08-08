@@ -61,8 +61,7 @@ def create_directory_info_classical(directory_info_dict_list:list, directory_id:
 		if (directory_info_dict_list != []):
 			for directory_info in directory_info_dict_list:
 				print("ID: ", (str)(directory_info['directory_id']) + ", DIR NAME: " + directory_info['directory_name'] + ", DIR_PATH: " + directory_info['directory_path'])
-		directory_info_dict['directory_where'] = input("標準でいい場合は、そのままエンターキーを押してください。: ")
-		# 簡単に説明すれば、tree_modeがTrueの場合はルートディレクトリの下にあるかどうかを確認する。
+		directory_info_dict['directory_where'] = input("標準でいい場合は、そのままエンターキーを押してください。: ")  # 簡単に説明すれば、tree_modeがTrueの場合はルートディレクトリの下にあるかどうかを確認する。
 		if ((directory_info_dict_list != []) and (not(formulae.formula_directory_J_is_equal_to_or_below_directory_I_other_type(directory_info_dict_list[0]['directory_where'], directory_info_dict['directory_where'])))):
 			print("作成するディレクトリを配下する場所のパスは、既に一つ以上のディレクトリを指定している場合、作成予定のディレクトリ全てを下に持つディレクトリを持っている必要があります。")
 		if ((directory_info_dict['directory_where'] == current_working_dir) or (directory_info_dict['directory_where'] == "")):
@@ -77,7 +76,7 @@ def create_directory_info_classical(directory_info_dict_list:list, directory_id:
 	if (is_root_directory == True):
 		directory_info_dict['root_dir_path'] = directory_info_dict['directory_path']
 	if (is_root_directory == False and tree_mode == True):
-		directory_info_dict['root_dir_path'] = None # 既存のもの（既に他で決定されている。）
+		directory_info_dict['root_dir_path'] = None  # 既存のもの（既に他で決定されている。）
 	if (tree_mode == True):
 		directory_info_dict['tree_mode'] = True
 	if (is_root_directory == True):
@@ -121,7 +120,6 @@ def create_directory_info(directory_info_dict_list:list, directory_id:int, if_cr
 					print("ID: ", (str)(directory_info['directory_id']) + ", DIR NAME: " + directory_info['directory_name'] + ", DIR_PATH: " + directory_info['directory_path'])
 			print("")
 			chosen_id:int = (int)(input("IDを入力: "))
-			# 簡単に説明すれば、tree_modeがTrueの場合はルートディレクトリの下にあるかどうかを確認する。
 			if (chosen_id < 0 or len(directory_info_dict_list) <= chosen_id):
 				print("そのようなIDは存在しません。")
 			else:
@@ -137,7 +135,7 @@ def create_directory_info(directory_info_dict_list:list, directory_id:int, if_cr
 	if (is_root_directory == True):
 		directory_info_dict['root_dir_path'] = directory_info_dict['directory_path']
 	if (is_root_directory == False and tree_mode == True):
-		directory_info_dict['root_dir_path'] = None # 既存のもの（既に他で決定されている。）
+		directory_info_dict['root_dir_path'] = None  # 既存のもの（既に他で決定されている。）
 	if (tree_mode == True):
 		directory_info_dict['tree_mode'] = True
 	if (is_root_directory == True):
@@ -161,8 +159,3 @@ def create_root_directory_info(directory_info_dict_list:list) -> list:
 			print("入力が正しくありません。")
 			pass
 	return root_directory_info_dict
-
-"""
-def create_tree_info(directory_info_dict_list:list):
-
-"""

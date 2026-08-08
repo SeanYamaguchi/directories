@@ -26,7 +26,7 @@ class Directory():
 		self.__root_directory_path = root_directory_path
 		self.__set_for_calculate_rank = SetOfDirectories()
 		self.__set_for_calculation = set()
-		self.__rank = None # (基礎論の文脈における)typeで決定することが可能。	
+		self.__rank = None  # (基礎論の文脈における)typeで決定することが可能。	
 		self.__height = None
 		self.__directory_name_related_and_rank_minus_1:Directory = None
 		self.__dir_or_dirs_related_and_rank_plus_1:SetOfDirectories = SetOfDirectories()
@@ -108,7 +108,7 @@ class Directory():
 	def rank(self) -> int:
 		return self.__rank
 	
-	def calculate_rank(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None: # Every node has its rank, one and only.
+	def calculate_rank(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:  # Every node has its rank, one and only.
 		if (self.__is_tree_node == False):
 			pass
 		else:
@@ -320,12 +320,12 @@ class Tree():
 		self.__levels_of_tree:SetOfOrderedPairs = SetOfOrderedPairs()
 
 	def calculate_level_alpha_of_tree(self, ordinal_number:int) -> None:
-		if (ordinal_number >= 0): # self.level_of_tree[(str)(ordinal_number)] == None
+		if (ordinal_number >= 0):
 			level_alpha_of_tree = NormalSet()
 			for element in set_of_elements:
 				if (element.rank == alpha):
 					level_alpha_of_tree.mutable_set.add_element(element)
-		self.__levels_of_tree.add_element(OrderedPair(ordinal_number, level_alpha_of_tree)) # alpha毎に定まるため、ordinal_numberを情報として持たせることが正しい。
+		self.__levels_of_tree.add_element(OrderedPair(ordinal_number, level_alpha_of_tree))  # alpha毎に定まるため、ordinal_numberを情報として持たせることが正しい。
 
 	def calculate_all_level_of_tree(self) -> None:
 		for ordinal_number in range(len(self.__set_of_elements)):
