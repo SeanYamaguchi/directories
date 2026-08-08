@@ -97,7 +97,7 @@ class Directory():
 		self.__root_directory_path = root_directory_path
 
 	@property
-	def set_for_calculation_rank(self) -> SetOfDirectories:
+	def set_for_calculation_rank(self) -> Set:
 		return self.__set_for_calculation_rank
 	
 	@property
@@ -162,7 +162,7 @@ class Directory():
 		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
 		for directory in set_of_directories:
-			if (directory.mutable_set.rank == self.__mutable_set.rank + 1): # ここおかしい。
+			if (directory.mutable_set.rank == self._mutable_set.rank + 1): # ここおかしい。
 				self.__dir_or_dirs_related_and_rank_plus_1.append(directory)
 
 	def calculate_tree_info(self) -> None:
@@ -177,88 +177,113 @@ class NormalSet():
 	本プログラムで扱う集合を表現するクラス
 	"""
 	def __init__(self) -> None:
-		self.__mutable_set = set()
-		self.__frozenset = set()
-		self.__frozen:bool = False
+		self._mutable_set = set()
+		self._frozen_set = set()
+		self._frozen:bool = False
 
 	def add_element(self, element) -> None:
-		if (self.__frozen == True):
+		if (self._frozen == True):
 			pass
 		else:
-			self.__mutable_set.add(element)
+			self._mutable_set.add(element)
 	
 	def create_frozenset(self) -> None:
-		if (self.__frozen == False):
-			self.__frozenset = frozenset(self.__mutable_set)
-			self.__frozen = True
+		if (self._frozen == False):
+			self._frozen_set = frozenset(self._mutable_set)
+			self._frozen = True
 		else:
 			pass
 
 	def remove_element(self, element) -> None:
-		if (self.frozen == True):
+		if (self._frozen == True):
 			pass
 		else:
-			self.__mutable_set.discard(element)
+			self._mutable_set.discard(element)
+
+	@property
+	def mutable_set(self) -> set:
+		return self._mutable_set
+
+	@property
+	def frozen_set(self) -> set:
+		return self._frozen_set
+	
+	@property
+	def frozen(self) -> bool:
+		return self._frozen
 
 class SetOfDirectories(NormalSet):
 	"""
 	ディレクトリの集合を表現するクラス
 	"""
 	def show(self) -> None:
-		if (directory.directory_id != None for directory in self.__mutable_set):
-			for directory in self.__mutable_set:
+		if (directory.directory_id != None for directory in self._mutable_set):
+			for directory in self._mutable_set:
 				directory.set_directory_path()
 				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 		else:
-			for directory in self.__mutable_set:
+			for directory in self._mutable_set:
 				directory.set_directory_path()
 				print("DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 
 	def show_with_directory_id(self) -> None:
-		if (directory.directory_id != None for directory in self.__mutable_set):
-			for directory in self.__mutable_set:
+		if (directory.directory_id != None for directory in self._mutable_set):
+			for directory in self._mutable_set:
 				directory.calculate_directory_path()
 				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
 		else:
-			for directory in self.__mutable_set:
+			for directory in self._mutable_set:
 				directory.set_directory_path()
 				print("ID: " + (str)(directory.directory_id) + ", DIRNAME: " + directory.directory_name + ", DIRPATH: " + directory.directory_path)
-
-class TreeOfDirectories(SetOfDirectories):
-	"""
-	SetOfDirectoriesクラスと実質同様なクラス。
-	"""
-	def show(self) -> None:
-		print(self.__mutable_set)
 
 class OrderedPair(NormalSet):
 	"""
 	順序対を表現するクラス。
 	"""
 	def __init__(self, element_I, element_J) -> None:
-		self.element_I = element_I
-		self.element_J = element_J
-		self.__mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
-		self.ordered_pair:frozenset = frozenset([frozenset([self.element_I]), frozenset([self.element_I, self.element_J])])
+		self._element_I = element_I
+		self._element_J = element_J
+		self._mutable_set = { frozenset([self._element_I]), frozenset([self._element_I, self._element_J]) }
+		self._ordered_pair:frozenset = frozenset([frozenset([self._element_I]), frozenset([self._element_I, self._element_J])])
+
+	@property
+	def element_I(self):
+		return self._element_I
+	
+	@property
+	def element_J(self):
+		return self._element_J
+
+	@property
+	def ordered_pair(self):
+		return self._ordered_pair
 
 class DirectoryOrderedPair(OrderedPair):
 	"""
 	ディレクトリに関する順序対を表現するクラス。
 	"""
 	def __init__(self, dir_I:Directory, dir_J:Directory) -> None:
-		self.element_I = dir_I
-		self.element_J = dir_J
-		self.dir_I = dir_I
-		self.dir_J = dir_J
-		self.__mutable_set = { frozenset([self.element_I]), frozenset([self.element_I, self.element_J]) }
-		self.ordered_pair:frozenset = frozenset([frozenset([self.dir_I]), frozenset([self.dir_I, self.dir_J])])
+		self._element_I = dir_I
+		self._element_J = dir_J
+		self._directory_I = dir_I
+		self._directory_J = dir_J
+		self._mutable_set = { frozenset([self._element_I]), frozenset([self._element_I, self._element_J]) }
+		self._ordered_pair:frozenset = frozenset([frozenset([self._directory_I]), frozenset([self._directory_I, self._directory_J])])
+
+	@property
+	def directory_I(self) -> Directory:
+		return self._directory_I
+
+	@property
+	def directory_J(self) -> Directory:
+		return self._directory_J
 
 class SetOfOrderedPairs(NormalSet):
 	"""
 	順序対の集合を定義するクラス。
 	"""
 	def show_ordered_pairs(self) -> None:
-		for ordered_pair in self.__mutable_set:
+		for ordered_pair in self._mutable_set:
 			print("OREDERED PAIR: " + "< " + ordered_pair.element_I + ", " + ordered_pair.element_J + " >")
 
 class SetOfDirectoryOrderedPairs(SetOfOrderedPairs): 
@@ -269,19 +294,19 @@ class SetOfDirectoryOrderedPairs(SetOfOrderedPairs):
 		if (set_representation == True):
 			print("{ ", end=" ")
 			c = 0
-			for ordered_pair in self.__mutable_set:
+			for ordered_pair in self._mutable_set:
 				c += 1
-				print("〈 " + "\"" + ordered_pair.dir_I.directory_name + "\"" + ", " + "\"" + ordered_pair.dir_J.directory_name + "\"" + " 〉", end=" ")
-				if (0 <= c and c < len(self.__mutable_set)):
+				print("〈 " + "\"" + ordered_pair.directory_I.directory_name + "\"" + ", " + "\"" + ordered_pair.directory_J.directory_name + "\"" + " 〉", end=" ")
+				if (0 <= c and c < len(self._mutable_set)):
 					print(", ", end=" ")
-				elif (c == len(self.__mutable_set)):
+				elif (c == len(self._mutable_set)):
 					print("", end=" ")
 				else:
 					print("", end=" ")
 			print(" }")
 		else:	
-			for ordered_pair in self.__mutable_set:
-				print("ORDERED PAIR OF DIRECTORIES: " + "〈 " + "\"" + ordered_pair.dir_I.directory_name + "\"" + ", " + "\"" + ordered_pair.dir_J.directory_name + "\"" + " 〉")
+			for ordered_pair in self._mutable_set:
+				print("ORDERED PAIR OF DIRECTORIES: " + "〈 " + "\"" + ordered_pair.directory_I.directory_name + "\"" + ", " + "\"" + ordered_pair.directory_J.directory_name + "\"" + " 〉")
 
 class Tree():
 	"""
