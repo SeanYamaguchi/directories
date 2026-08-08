@@ -313,12 +313,11 @@ class Tree():
 	木構造を表現するクラス。集合と半順序の対として定義されているように、単なるディレクトリの集合等ではないことに注意する。
 	"""
 	def __init__(self, set_of_elements:NormalSet, relation:Set, relation_formula:function) -> None:
-		self.set_of_elements:NormalSet = set_of_elements # set of directories等である。
-		self.relation:SetOfDirectoryOrderedPairs = relation # set of directory orde
-		self.relation_formula:function = None
-		self.height_of_tree:int = None
-		self.formula:function = None
-		self.levels_of_tree:SetOfOrderedPairs = SetOfOrderedPairs()
+		self.__set_of_elements:NormalSet = set_of_elements # set of directories等である。
+		self.__relation:SetOfDirectoryOrderedPairs = relation # set of directory ordered pairs等である。
+		self.__height_of_tree:int = None
+		self.__formula:function = None
+		self.__levels_of_tree:SetOfOrderedPairs = SetOfOrderedPairs()
 
 	def calculate_level_alpha_of_tree(self, ordinal_number:int) -> None:
 		if (ordinal_number >= 0): # self.level_of_tree[(str)(ordinal_number)] == None
@@ -326,15 +325,15 @@ class Tree():
 			for element in set_of_elements:
 				if (element.rank == alpha):
 					level_alpha_of_tree.mutable_set.add_element(element)
-		self.levels_of_tree.add_element(OrderedPair(ordinal_number, level_alpha_of_tree)) # alpha毎に定まるため、ordinal_numberを情報として持たせることが正しい。
+		self.__levels_of_tree.add_element(OrderedPair(ordinal_number, level_alpha_of_tree)) # alpha毎に定まるため、ordinal_numberを情報として持たせることが正しい。
 
 	def calculate_all_level_of_tree(self) -> None:
-		for ordinal_number in range(len(self.set_of_directories)):
+		for ordinal_number in range(len(self.__set_of_elements)):
 			calculate_level_alpha_of_tree(ordinal_number)
 
 	def calculate_height_of_tree(self) -> None:
-		min_value = len(self.set_of_directories)
-		for ordinal_number in range(len(self.set_of_directories)):
-			if (self.levels_of_tree.mutable_set.element_I == set() and ordinal_number < min_value):
+		min_value = len(self.__set_of_elements)
+		for ordinal_number in range(len(self.__set_of_elements)):
+			if (self.__levels_of_tree.mutable_set.element_I == set() and ordinal_number < min_value):
 				min_value = ordinal_number
-		self.height_of_tree = min_value
+		self.__height_of_tree = min_value
