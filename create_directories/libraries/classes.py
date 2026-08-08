@@ -162,15 +162,15 @@ class Directory():
 		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
 		for directory in set_of_directories:
-			if (directory.mutable_set.rank == self._mutable_set.rank + 1): # ここおかしい。
+			if (directory.mutable_set.rank == self.__rank + 1):
 				self.__dir_or_dirs_related_and_rank_plus_1.append(directory)
 
 	def calculate_tree_node_info(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
 		self.calculate_directory_path()
 		self.calculate_rank(set_of_directory_ordered_pairs)
 		self.calculate_height_of_element()
-		# self.calculate_dir_related_and_rank_minus_1()
-		# self.calculate_dir_or_dirs_related_and_rank_plus_1()
+		self.calculate_dir_related_and_rank_minus_1(set_of_directory_ordered_pairs)
+		self.calculate_dir_or_dirs_related_and_rank_plus_1(set_of_directory_ordered_pairs)
 
 class NormalSet():
 	"""
