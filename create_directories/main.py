@@ -64,7 +64,7 @@ def main() -> None:
 			set_of_directories = classes.SetOfDirectories()
 			for directory_info in directory_info_dict_list:
 				directory = classes.Directory(directory_info['directory_name'], directory_info['directory_where'], directory_info['root_dir_path'], directory_info['tree_mode'])
-				directory.set_directory_path()
+				directory.calculate_directory_path()
 				set_of_directories.add_element(directory)
 
 			set_of_directory_ordered_pairs = sets.create_set_of_ordered_pairs_from_set_of_directories(set_of_directories.mutable_set)				
@@ -74,7 +74,7 @@ def main() -> None:
 			print("\n")
 			for directory in set_of_directories.mutable_set:
 				directory.calculate_rank(set_of_directory_ordered_pairs)
-				print("DIRNAME: " + directory.dir_name + ", RANK" + (str)(directory.rank))
+				print("DIRNAME: " + directory.directory_name + ", RANK" + (str)(directory.rank))
 				print("SET FOR CALCULATION: " + (str)(directory.set_for_calculation) + "\n")
 
 			given_datetime = time_edit.input_time_today()

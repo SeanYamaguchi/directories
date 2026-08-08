@@ -40,9 +40,9 @@ def is_related_with_certain_directory(relation_method:function, directory:Direct
 	set_of_related_ordered_pairs = classes.SetOfDirectoryOrderedPairs()
 	set_of_related_atomic_elements = classes.SetOfDirectories()
 	for ordered_pair in set_of_directory_ordered_pairs.mutable_set:
-		if(relation_method(ordered_pair.dir_I.dir_path, directory.dir_path)): 
-			related_ordered_pair = classes.DirectoryOrderedPair(ordered_pair.dir_I, directory)
-			set_of_related_atomic_elements.add_element(ordered_pair.dir_I)
+		if(relation_method(ordered_pair.directory_I.directory_path, directory.directory_path)): 
+			related_ordered_pair = classes.DirectoryOrderedPair(ordered_pair.directory_I, directory)
+			set_of_related_atomic_elements.add_element(ordered_pair.directory_I)
 			set_of_related_ordered_pairs.add_element(related_ordered_pair)
 	if (return_elements == False):
 		return set_of_related_ordered_pairs
