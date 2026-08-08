@@ -42,7 +42,7 @@ def hour_converter_from_AM_PM_to_24_foundation(hour_AM_PM:int, AM_or_PM_identifi
 
 def create_time_info() -> dict:			
 	print("好みの時間を入力してください。")
-	AM_PM_input = input_AM_PM() # 午前か午後かの入力。
+	AM_PM_input = input_AM_PM()  # 午前か午後かの入力。
 	hour_input = (int)(input("時間？: "))
 	minute_input = (int)(input("何分？: "))
 	time_dict = {'AM_or_PM_identifier': AM_PM_input, 'hour': hour_input, 'minute': minute_input }
