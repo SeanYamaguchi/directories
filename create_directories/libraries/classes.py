@@ -10,17 +10,17 @@ from libraries import formulae
 class Directory():
 	"""	
 	ディレクトリに関する情報を管理するクラス。
+	
 	"""
 	def __init__(self, directory_name:str, directory_where:str, root_directory_path:str = None, tree_mode:bool = False, directory_id:int = None):	
 		# Info As Directory
 		self.__directory_name = directory_name
 		self.__directory_where = directory_where
-		self.__directory_path = self.__directory_where + "\\" + self.__directory_name
+		if not (self.__directory_name == None or self.__directory_where == None):
+			self.__directory_path = self.__directory_where + "\\" + self.__directory_name
 		self.__is_tree_node = False
 		if (tree_mode == True):
 			self.__is_tree_node = True
-		else:
-			pass
 		self.__directory_id = directory_id
 		# Info As Tree Node
 		self.__root_directory_path = root_directory_path
@@ -41,7 +41,6 @@ class Directory():
 		if (self.__is_tree_node == False):
 			print("TREE_NODE: " + self.__is_tree_node)
 		else:
-			pass
 			print("------ Info As Tree Node ------")
 			print("RANK: " + (str)(self.__rank))
 			print("HEIGHT: " + (str)(self.__height))
@@ -109,9 +108,7 @@ class Directory():
 		return self.__rank
 	
 	def calculate_rank(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:  # Every node has its rank, one and only.
-		if (self.__is_tree_node == False):
-			pass
-		else:
+		if (self.__is_tree_node == True):
 			self.__set_for_calculate_rank = sets.is_related_with_certain_directory(formulae.formula_directory_J_is_below_directory_I_other_type, self, set_of_directory_ordered_pairs, True) # 予め、正しく計算されている。
 			if ((self.__set_for_calculate_rank.mutable_set) <= set()):
 				self.__rank = 0
@@ -138,39 +135,40 @@ class Directory():
 	def dir_related_and_rank_minus_1(self) -> Directory:
 		return self.__dir_related_and_rank_minus_1
 
+	def calculate_directory_of_max_rank(self, set_of_directories:SetOfDirectories) -> Directory:
+		if (self.__is_tree_node == False):
+			print("NOT TREE")
+		else:
+			directory_of_max_rank = Directory(None, None)
+			directory_of_max_rank.__rank = 0
+			for directory in set_of_directories.mutable_set:
+				if (directory_of_max_rank.rank < directory.rank):
+					directory_of_max_rank = directory
+			return directory_of_max_rank
+
 	def calculate_dir_related_and_rank_minus_1(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
 		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
 		if (self.__rank == 0):
 			self.__dir_related_and_rank_minus_1 = None
 		elif (self.__rank > 0):
-			self.__dir_related_and_rank_minus_1 = calculate_directory_of_max_rank(self.__set_for_calculate_rank.mutable_set)
+			self.__dir_related_and_rank_minus_1 = self.calculate_directory_of_max_rank(self.__set_for_calculate_rank)
 		else:
 			pass
-
-	def calculate_directory_of_max_rank(self, set_of_directories:SetOfDirectories) -> Directory:
-		if (self.__is_tree_node == False):
-			print("NOT TREE")
-		else:
-			directory_of_max_rank = Directory()
-			for directory in set_of_directories:
-				if ((directory_of_max_rank != set() and directory_of_max_rank.rank < directory.rank) or (directory_of_max_rank.rank < directory.rank)):
-					directory_of_max_rank = directory
-			return directory
 
 	def calculate_dir_or_dirs_related_and_rank_plus_1(self, set_of_directories:SetOfDirectories, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
 		if (self.__rank == None):
 			self.calculate_rank(set_of_directory_ordered_pairs)
-		for directory in set_of_directories:
-			if (directory.mutable_set.rank == self.__rank + 1):
-				self.__dir_or_dirs_related_and_rank_plus_1.append(directory)
+		for directory in set_of_directories.mutable_set:
+			if (directory.rank == self.__rank + 1):
+				self.__dir_or_dirs_related_and_rank_plus_1.add_element(directory)
 
-	def calculate_tree_node_info(self, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
+	def calculate_tree_node_info(self, set_of_directories:SetOfDirectories, set_of_directory_ordered_pairs:SetOfDirectoryOrderedPairs) -> None:
 		self.calculate_directory_path()
 		self.calculate_rank(set_of_directory_ordered_pairs)
-		self.calculate_height_of_element()
+		self.calculate_height_of_element(set_of_directory_ordered_pairs)
 		self.calculate_dir_related_and_rank_minus_1(set_of_directory_ordered_pairs)
-		self.calculate_dir_or_dirs_related_and_rank_plus_1(set_of_directory_ordered_pairs)
+		self.calculate_dir_or_dirs_related_and_rank_plus_1(set_of_directories, set_of_directory_ordered_pairs)
 
 class NormalSet():
 	"""

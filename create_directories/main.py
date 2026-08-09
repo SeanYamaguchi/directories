@@ -73,7 +73,7 @@ def main() -> None:
 
 			print("\n")
 			for directory in set_of_directories.mutable_set:
-				directory.calculate_rank(set_of_directory_ordered_pairs)
+				directory.calculate_tree_node_info(set_of_directories, set_of_directory_ordered_pairs)
 				print("DIRNAME: " + directory.directory_name + ", RANK" + (str)(directory.rank))  # print("SET FOR CALCULATION: " + (str)(directory.set_for_calculation) + "\n")
 
 			given_datetime = time_edit.input_time_today()
